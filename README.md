@@ -193,7 +193,7 @@ geocodeService
 
 app.listen(3030);
 
-console.log('Feathers authentication app started on 127.0.0.1:3030');
+console.log('Feathers app started on 127.0.0.1:3030');
 ```
 
 ## License
