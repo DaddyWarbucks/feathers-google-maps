@@ -2,6 +2,7 @@
   "name": "feathers-google-maps",
   "version": "0.0.1",
   "description": "A Feathers service for interacting with the Google Maps API",
+  "keywords": ["feathers", "google maps"],
   "main": "lib/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
