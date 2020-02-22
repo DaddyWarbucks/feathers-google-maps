@@ -2,7 +2,10 @@
   "name": "feathers-google-maps",
   "version": "0.0.1",
   "description": "A Feathers service for interacting with the Google Maps API",
-  "keywords": ["feathers", "google maps"],
+  "keywords": [
+    "feathers",
+    "google maps"
+  ],
   "main": "lib/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +22,6 @@
   "homepage": "https://github.com/DaddyWarbucks/feathers-google-maps#readme",
   "dependencies": {
     "@feathersjs/errors": "^4.3.0",
-    "@google/maps": "^0.5.5"
+    "@googlemaps/google-maps-services-js": "^2.0.2"
   }
 }
