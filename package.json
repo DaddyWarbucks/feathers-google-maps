@@ -1,6 +1,6 @@
 {
   "name": "feathers-google-maps",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Feathers service for interacting with the Google Maps API",
   "keywords": [
     "feathers",
