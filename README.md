@@ -10,40 +10,27 @@ yarn add feathers-google-maps
 
 ## Documentation
 
-This service is a light wrapper around the @google/maps library. Please refer to the [@google/maps](https://github.com/googlemaps/google-maps-services-js) documenation for options that can be passed. You will also find it helpful to reference the [Google Maps Web Service APIs](https://developers.google.com/maps/apis-by-platform#web_service_apis) docs.
-
-This service not only allows the power of feathers hooks, events, etc, but it
-also solves some common problems and shortcomings of @google/maps such as:
-
-- Async by default. There is no need to pass the `Promise` option. It is provided by default but can be overriden by a different promise contructor. feathers-google-maps does not support callbacks.
-
-- Catches the string errors thrown. @google/maps will sometimes throw string errors. For example, `throw 'timeout'`. These errors, and all others, are wrapped in [@feathersjs/errors](https://docs.feathersjs.com/api/errors.html)
-
-- Catches sync errors. @google/maps will also throw sync errors where you would expect a standard `.catch()` to handle the error but is never reached. These are wrapped in a try/catch and handled asyncronously.
+This service is a light wrapper around the @googlemaps/google-maps-services-js library. Please refer to the [@googlemaps/google-maps-services-js](https://github.com/googlemaps/google-maps-services-js) documenation for options that can be passed. You will also find it helpful to reference the [Google Maps Web Service APIs](https://developers.google.com/maps/apis-by-platform#web_service_apis) docs.
 
 ### Available Services
 
 The following methods are supported and map to the appropriate @google/maps methods:
 
 - directions
-- distanceMatrix
+- distancematrix
 - elevation
-- elevationAlongPath
 - geocode
-- geolocate
 - reverseGeocode
-- findPlace
-- places
+- geolocate
+- placeAutocomplete
+- placeDetails
+- findPlaceFromText
+- placePhoto
 - placesNearby
-- placesRadar
-- place
-- placesPhoto
-- placesAutoComplete
-- placesQueryAutoComplete
-- snapToRoads
+- placeQueryAutocomplete
+- textSearch
 - nearestRoads
-- speedLimits
-- snappedSpeedLimits
+- snapToRoads
 - timezone
 
 ## Creating a Service
@@ -61,7 +48,7 @@ app.use('directions', Directions);
 
 The service exposes two methods, `find(params)` and `create(data, params)`. These two methods are functionally equivalent. The `create()` method is added so that you can take advantage of the `.on('created')` service event.
 
-When using the `find(params)` method, include the `query` as the query to be passed to the underlying method.
+When using the `find(params)` method, include the `query` as the params to be passed to the underlying GoogleMaps method.
 
 ```js
 app.service('directions').find({
@@ -70,19 +57,34 @@ app.service('directions').find({
     destination: 'Memphis, TN'
   }
 });
+
+// This will call the googlMaps method like
+googleMaps.directions({
+  params: {
+    origin: 'Nashville, TN',
+    destination: 'Memphis, TN',
+    key: 'YOUR API KEY'
+  }
+});
 ```
 
-When using the `create(data, params)` method, the `data` will be passed to the underlying method.
+When using the `create(data, params)` method, the `data` will be passed to the underlying GoogleMaps method.
 
 ```js
 app.service('directions').create({
   origin: 'Nashville, TN',
   destination: 'Memphis, TN'
 });
-```
 
-@google/maps also allows you to pass custom parameters to method calls. These can be passed by adding `params.googleMaps`.
-On successful calls, the raw response will be added to `params.googleMaps.response` to be accessed in your `after` hooks. On calls that threw an error, the raw error will be added to `params.googleMaps.error` to be accessed in your `error` hooks.
+// This will also call the googlMaps method like
+googleMaps.directions({
+  params: {
+    origin: 'Nashville, TN',
+    destination: 'Memphis, TN',
+    key: 'YOUR API KEY'
+  }
+});
+```
 
 ## Complete Example
 

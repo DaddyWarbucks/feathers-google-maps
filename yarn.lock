@@ -9,14 +9,15 @@
   dependencies:
     debug "^4.1.1"
 
-"@googlemaps/google-maps-services-js@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@googlemaps/google-maps-services-js/-/google-maps-services-js-2.0.2.tgz#cb056d54208ab5e38a867f8310b8b6562112c14e"
-  integrity sha512-AzhUckl3X9QmopPxx/QKUwoUenvnkhTAP6811siaociclxS3vf4GHGVIMAEHVcvjt+2cWeq+603gLBVciS5TKg==
+"@googlemaps/google-maps-services-js@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/google-maps-services-js/-/google-maps-services-js-3.1.2.tgz#6d5edf816f3a9c165e828cea34bf7959a7aedfae"
+  integrity sha512-RmCyqs9L0KiqTHmmx31NLwtZ3dqjX1w/zD/NuHHah+gCVEj427ZuyVFxgcXUm38ttUukpBLtLlxT036JYek1jA==
   dependencies:
     agentkeepalive "^4.1.0"
     axios "^0.19.0"
-    query-string "github:jpoehnelt/query-string#e22cdb49ef848efaed4fe60d63d2504b496027c1"
+    query-string "^6.11.0"
+    retry-axios "^2.2.1"
 
 agentkeepalive@^4.1.0:
   version "4.1.0"
@@ -82,13 +83,19 @@ ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-"query-string@github:jpoehnelt/query-string#e22cdb49ef848efaed4fe60d63d2504b496027c1":
-  version "6.9.0"
-  resolved "https://codeload.github.com/jpoehnelt/query-string/tar.gz/e22cdb49ef848efaed4fe60d63d2504b496027c1"
+query-string@^6.11.0:
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.1.tgz#d913ccfce3b4b3a713989fe6d39466d92e71ccad"
+  integrity sha512-RfoButmcK+yCta1+FuU8REvisx1oEzhMKwhLUNcepQTPGcNMp1sIqjnfCtfnvGSQZQEhaBHvccujtWoUV3TTbA==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
+
+retry-axios@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/retry-axios/-/retry-axios-2.2.1.tgz#da3cb93436fa2f931332d4e6a9927bd6cfa618c8"
+  integrity sha512-vSZzu29W48+/mVPOq+gwKe+qYWcppiKODXi4FN9q0iN+4s2z10/l1LDS4Ju4vReTyuvKOoqmHqY0rOAmuFjI/Q==
 
 split-on-first@^1.0.0:
   version "1.1.0"
