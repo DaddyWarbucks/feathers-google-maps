@@ -19,18 +19,18 @@ The following methods are supported and map to the appropriate @google/maps meth
 - directions
 - distancematrix
 - elevation
+- findPlaceFromText
 - geocode
-- reverseGeocode
 - geolocate
+- nearestRoads
 - placeAutocomplete
 - placeDetails
-- findPlaceFromText
 - placePhoto
-- placesNearby
 - placeQueryAutocomplete
-- textSearch
-- nearestRoads
+- placesNearby
+- reverseGeocode
 - snapToRoads
+- textSearch
 - timezone
 
 ## Creating a Service
@@ -200,6 +200,6 @@ console.log('Feathers app started on 127.0.0.1:3030');
 
 ## License
 
-Copyright (c) 2019
+Copyright (c) 2023
 
 Licensed under the [MIT license](LICENSE).
