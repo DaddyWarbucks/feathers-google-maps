@@ -1,9 +1,11 @@
 import type { ClientOptions } from '@googlemaps/google-maps-services-js';
 import { Client } from '@googlemaps/google-maps-services-js';
-import type { FeathersError } from '@feathersjs/errors';
+import type { FeathersError, Errors } from '@feathersjs/errors';
 import { errors as feathersErrors, GeneralError } from '@feathersjs/errors';
 
 import type { Params } from '@feathersjs/feathers';
+
+type GoogleMapsErrors = Omit<Errors, 'FeathersError'>;
 
 export type GoogleMapsServiceOptions<Method extends GoogleMapsMethod> =
   ClientOptions & {
@@ -63,7 +65,7 @@ export class GoogleMapsService<Method extends GoogleMapsMethod> {
   method(
     googleParams: GoogleMapsParams<Method>,
     feathersParams: AdditionalParams<Method> = {}
-  ): Promise<GoogleMapsServiceResponseData<Method>> {
+  ): Promise<GoogleMapsServiceResponseData<Method> | void> {
     const { googleMaps: googleOptions } = feathersParams;
 
     const googleKey = googleParams.key || googleOptions?.key || this.googleKey;
@@ -75,6 +77,7 @@ export class GoogleMapsService<Method extends GoogleMapsMethod> {
     }
 
     // @ts-expect-error TODO: fix this
+    // This works when commenting out the directions method
     return this.googleMapsService[this.googleMethod]({
       // @ts-expect-error TODO: fix this
       params: {
@@ -89,7 +92,7 @@ export class GoogleMapsService<Method extends GoogleMapsMethod> {
 
   find(
     params: Params<GoogleMapsParams<Method>> & AdditionalParams<Method>
-  ): Promise<GoogleMapsServiceResponseData<Method>> {
+  ): Promise<GoogleMapsServiceResponseData<Method> | void> {
     const { query: googleParams, ...feathersParams } = params;
     if (!googleParams) throw new GeneralError('Missing query parameters');
     return this.method(googleParams, feathersParams);
@@ -98,7 +101,7 @@ export class GoogleMapsService<Method extends GoogleMapsMethod> {
   create(
     googleParams: GoogleMapsParams<Method>,
     feathersParams: AdditionalParams<Method>
-  ): Promise<GoogleMapsServiceResponseData<Method>> {
+  ): Promise<GoogleMapsServiceResponseData<Method> | void> {
     return this.method(googleParams, feathersParams);
   }
 }
@@ -123,22 +126,22 @@ function errorHandler<Method extends GoogleMapsMethod>(
 
   let feathersError: FeathersError;
 
-  // @ts-expect-error TODO: fix this
-  if (response.status && feathersErrors[response.status]) {
-    // @ts-expect-error TODO: fix this
-    feathersError = new feathersErrors[response.status](
-      (response.data && response.data.error_message) || error.message,
-      response.data
-    );
+  if (
+    response.status &&
+    feathersErrors[response.status as keyof GoogleMapsErrors]
+  ) {
+    feathersError = new feathersErrors[
+      response.status as keyof GoogleMapsErrors
+    ](response.data?.error_message || error.message, response.data);
   } else {
     feathersError = new feathersErrors.FeathersError(
-      (response.data && response.data.error_message) || error.message,
-      response.data && response.data.status,
+      response.data?.error_message || error.message,
+      response.data?.status,
       response.status,
-      response.data && response.data.status,
+      response.data?.status,
       response.data
     );
   }
 
-  return feathersError;
+  throw feathersError;
 }
